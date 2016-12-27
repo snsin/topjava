@@ -3,6 +3,7 @@ package ru.javawebinar.topjava;
 import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.Meal;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Objects;
@@ -24,6 +25,12 @@ public class MealTestData {
     );
 
     public static final int FIRST_MEAL_ID = START_SEQ + 2;
+
+    public static final LocalDate MAY_30_2015 = LocalDate.of(2015, Month.MAY, 30);
+
+    public static final LocalDateTime THIRD_USER_MEAL_TIME = LocalDateTime.of(2015, Month.MAY, 30, 20, 0);
+
+    public static final LocalDateTime FIFTH_USER_MEAL_TIME = LocalDateTime.of(2015, Month.MAY, 31, 13, 0);
 
     public static final Meal FIRST_USER_MEAL =
             new Meal(FIRST_MEAL_ID, LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500);
