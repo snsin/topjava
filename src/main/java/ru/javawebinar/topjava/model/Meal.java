@@ -20,6 +20,10 @@ public class Meal extends BaseEntity {
         this(null, LocalDateTime.now(), "", 0);
     }
 
+    public Meal(Meal meal) {
+        this(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories());
+    }
+
     public Meal(LocalDateTime dateTime, String description, int calories) {
         this(null, dateTime, description, calories);
     }
