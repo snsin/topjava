@@ -36,5 +36,7 @@ CREATE TABLE meals
   CONSTRAINT meal_user_idx UNIQUE (id, user_id),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
-
+-- PostgreSQL automatically creates a unique index when a unique constraint or primary key is defined for a table
+-- If DB doesn't automatically create a index when a unique constraint is definet for a table uncomment next line
+--CREATE UNIQUE INDEX meal_user_idx ON meals (id, user_id);
 CREATE INDEX user_id_meals_idx ON meals (user_id);
