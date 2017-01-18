@@ -9,13 +9,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 /**
  * Created by smac on 18.01.17.
  */
-@ActiveProfiles({Profiles.ACTIVE_DB, Profiles.JPA})
+@ActiveProfiles( Profiles.JPA)
 public class MealServiceJpaTest extends MealServiceTest {
-    private static final Logger LOG = getLogger(MealServiceJpaTest.class);
-
-    @Override
-    protected Logger getLog() {
-        return LOG;
-    }
-
 }

@@ -9,6 +9,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 /**
  * Created by smac on 18.01.17.
  */
-@ActiveProfiles({Profiles.ACTIVE_DB, Profiles.JDBC})
+@ActiveProfiles(Profiles.JDBC)
 public class UserServiceJdbcTest extends UserServiceTest {
 }
