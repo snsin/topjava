@@ -24,7 +24,6 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     int delete(@Param("id") int id, @Param("userId") int userId);
 
     @Transactional
-    @Modifying
     @Override
     Meal save(Meal meal);
 
