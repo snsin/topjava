@@ -1,18 +1,20 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.Before;
+import org.junit.Assume;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
+import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.repository.JpaUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Stream;
 
 import static ru.javawebinar.topjava.UserTestData.*;
 
@@ -20,15 +22,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;
-
-    @Autowired
-    protected JpaUtil jpaUtil;
-
-    @Before
-    public void setUp() throws Exception {
-        service.evictCache();
-        jpaUtil.clear2ndLevelHibernateCache();
-    }
 
     @Test
     public void testSave() throws Exception {
@@ -41,12 +34,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Test(expected = DataAccessException.class)
     public void testDuplicateMailSave() throws Exception {
         service.save(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
-    }
-
-    @Test
-    public void testDelete() throws Exception {
-        service.delete(USER_ID);
-        MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), service.getAll());
     }
 
     @Test(expected = NotFoundException.class)
@@ -88,10 +75,18 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testValidation() throws Exception {
+        Assume.assumeFalse(isJdbcProfile());
         validateRootCause(() -> service.save(new User(null, "  ", "invalid@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.save(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.save(new User(null, "User", "invalid@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.save(new User(null, "User", "invalid@yandex.ru", "password", 9, true, Collections.emptySet())), ConstraintViolationException.class);
         validateRootCause(() -> service.save(new User(null, "User", "invalid@yandex.ru", "password", 10001, true, Collections.emptySet())), ConstraintViolationException.class);
     }
+
+    @Test
+    public void testDelete() throws Exception {
+        service.delete(USER_ID);
+        MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), service.getAll());
+    }
+
 }
