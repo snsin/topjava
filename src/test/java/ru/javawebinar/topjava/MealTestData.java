@@ -2,10 +2,13 @@ package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static java.time.LocalDateTime.of;
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
@@ -32,6 +35,8 @@ public class MealTestData {
 
     public static final List<Meal> MEALS = Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
 
+    public static final List<MealWithExceed> MEALS_WITH_EXCEED = MealsUtil.getWithExceeded(MEALS, MealsUtil.DEFAULT_CALORIES_PER_DAY);
+
     public static Meal getCreated() {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
     }
@@ -39,4 +44,26 @@ public class MealTestData {
     public static Meal getUpdated() {
         return new Meal(MEAL1_ID, MEAL1.getDateTime(), "Обновленный завтрак", 200);
     }
+
+    public final static ModelMatcher<MealWithExceed> EXCEED_MATCHER = ModelMatcher.of(MealWithExceed.class,
+            (expected, actual) -> expected == actual ||
+                    (expected.getCalories() == actual.getCalories()
+                            && Objects.equals(expected.getDescription(), actual.getDescription())
+                            && Objects.equals(expected.getDateTime(), actual.getDateTime())
+                            && Objects.equals(expected.getId(), actual.getId())
+                            && (expected.isExceed() == actual.isExceed())
+                    )
+
+    );
+
+    public final static ModelMatcher<Meal> MEAL_MATCHER = ModelMatcher.of(Meal.class,
+            (expected, actual) -> expected == actual ||
+                    (expected.getCalories() == actual.getCalories()
+                            && Objects.equals(expected.getDescription(), actual.getDescription())
+                            && Objects.equals(expected.getDateTime(), actual.getDateTime())
+                            && Objects.equals(expected.getId(), actual.getId())
+//                            && Objects.equals(expected.getUser(), actual.getUser())
+                    )
+
+    );
 }

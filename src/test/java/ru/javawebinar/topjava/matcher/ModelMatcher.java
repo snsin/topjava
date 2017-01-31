@@ -89,7 +89,7 @@ public class ModelMatcher<T> {
     }
 
     public void assertCollectionEquals(Collection<T> expected, Collection<T> actual) {
-        Assert.assertEquals(wrap(expected), wrap(actual));
+        Assert.assertEquals("no OK", wrap(expected), wrap(actual));
     }
 
     public Wrapper wrap(T entity) {
