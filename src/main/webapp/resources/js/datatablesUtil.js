@@ -18,6 +18,16 @@ function add() {
     $('#editRow').modal();
 }
 
+function filter() {
+/*    $('#id').val(null);*/
+    $('#filter').modal();
+    $('#filterForm').submit(function () {
+        doFilter();
+        return false;
+    })
+
+}
+
 function deleteRow(id) {
     $.ajax({
         url: ajaxUrl + id,
@@ -31,12 +41,17 @@ function deleteRow(id) {
 
 function updateTable() {
     $.get(ajaxUrl, function (data) {
-        datatableApi.clear();
-        $.each(data, function (key, item) {
-            datatableApi.row.add(item);
-        });
-        datatableApi.draw();
+        drawTable(data);
     });
+}
+
+function drawTable(data) {
+    datatableApi.clear();
+    $.each(data, function (key, item) {
+        datatableApi.row.add(item);
+    });
+    datatableApi.draw();
+
 }
 
 function save() {
@@ -51,6 +66,19 @@ function save() {
             successNoty('Saved');
         }
     });
+}
+
+function doFilter() {
+    var form = $('#filterForm');
+    $.ajax({
+        type: "GET",
+        url:ajaxUrl + 'filter',
+        data:form.serialize(),
+        success: function (data) {
+            $('#filter').modal('hide');
+            drawTable(data);
+        }
+    })
 }
 
 var failedNote;

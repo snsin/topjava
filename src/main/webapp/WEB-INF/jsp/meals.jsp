@@ -17,8 +17,19 @@
                 <a class="btn btn-sm btn-info" onclick="add()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true">
 
-                    </span>
+                </span>
                 </a>
+                <a class="btn btn-sm btn-warning" onclick="filter()">
+                    <span class="glyphicon glyphicon-filter" aria-hidden="true">
+
+                </span>
+                </a>
+                <a class="btn btn-sm btn-success" onclick="updateTable()">
+                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true">
+
+                </span> Remove filter
+                </a>
+
             </div>
             <table class="table table-stripped display" id="datatable">
                 <thead>
@@ -86,6 +97,61 @@
 
                         <div class="col-xs-9">
                             <input type="number" class="form-control" id="calories" name="calories" placeholder="<spring:message code="meals.calories"/>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="filter">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title"><spring:message code="meals.filter"/></h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" method="get" id="filterForm">
+                    <input type="text" hidden="hidden" id="filterId">
+
+                    <div class="form-group">
+                        <label for="startDate" class="control-label col-xs-3"><spring:message code="meals.startDate"/></label>
+
+                        <div class="col-xs-9">
+                            <input type="date" class="form-control" id="startDate" name="startDate" placeholder="<spring:message code="meals.startDate"/>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startTime" class="control-label col-xs-3"><spring:message code="meals.startTime"/></label>
+
+                        <div class="col-xs-9">
+                            <input type="time" class="form-control" id="startTime" name="startTime" placeholder="<spring:message code="meals.startTime"/>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endDate" class="control-label col-xs-3"><spring:message code="meals.endDate"/></label>
+
+                        <div class="col-xs-9">
+                            <input type="date" class="form-control" id="endDate" name="endDate" placeholder="<spring:message code="meals.endDate"/>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime" class="control-label col-xs-3"><spring:message code="meals.endTime"/></label>
+
+                        <div class="col-xs-9">
+                            <input type="time" class="form-control" id="endTime" name="endTime" placeholder="<spring:message code="meals.endTime"/>">
                         </div>
                     </div>
 
