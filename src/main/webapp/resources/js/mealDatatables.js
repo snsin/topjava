@@ -51,11 +51,9 @@ $(function () {
                 "desc"
             ]
         ],
-/*        "createdRow": function (row, data, dataIndex) {
-            if (!data.enabled) {
-                $(row).addClass("disabled");
-            }
-        },*/
+        "createdRow": function (row, data, dataIndex) {
+            $(row).addClass(data.exceed ? "exceeded" : "normal");
+        },
         "initComplete": makeEditable
     });
 });
