@@ -3,10 +3,12 @@ package ru.javawebinar.topjava.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -28,7 +30,7 @@ import java.time.LocalTime;
 })
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
-public class Meal extends BaseEntity implements Serializable {
+public class Meal extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
     public static final String ALL_SORTED = "Meal.getAll";
@@ -47,7 +49,8 @@ public class Meal extends BaseEntity implements Serializable {
 
     @Column(name = "calories", nullable = false)
     @Range(min = 10, max = 5000)
-    private int calories;
+    @NotNull
+    private Integer calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -76,7 +79,7 @@ public class Meal extends BaseEntity implements Serializable {
         return description;
     }
 
-    public int getCalories() {
+    public Integer getCalories() {
         return calories;
     }
 
@@ -96,7 +99,7 @@ public class Meal extends BaseEntity implements Serializable {
         this.description = description;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(Integer calories) {
         this.calories = calories;
     }
 

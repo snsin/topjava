@@ -26,7 +26,14 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "dateTime"
+                "data": "dateTime",
+                "render": function (date, type, row) {
+                    if(type == 'display') {
+                        return '<span>' + date.slice(0, 16).replace("T", " ") + '</span>';
+                    }
+                    return date;
+
+                }
             },
             {
                 "data": "description"
