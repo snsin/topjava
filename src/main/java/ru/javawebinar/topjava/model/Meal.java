@@ -37,7 +37,8 @@ public class Meal extends BaseEntity implements Serializable {
 
     @Column(name = "date_time", nullable = false)
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)

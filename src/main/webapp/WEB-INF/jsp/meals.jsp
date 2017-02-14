@@ -9,6 +9,10 @@
 <script type="text/javascript" src="resources/js/mealDatatables.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
+<link rel="stylesheet" type="text/css" href="webjars/datetimepicker/2.5.4/jquery.datetimepicker.css"/>
+<script src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js" defer></script>
+
+
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
@@ -95,6 +99,9 @@
                         </tr>
                     </c:forEach>--%>
                 </table>
+ <%--               <div class="col-sm-10">
+                    <input id="datetimepicker" type="datetime-local">
+                </div>--%>
             </div>
         </div>
     </div>
@@ -113,11 +120,11 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="dateTime" class="control-label col-xs-3"><spring:message
+                        <label for="datetimepicker" class="control-label col-xs-3"><spring:message
                                 code="meals.dateTime"/></label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime"
+                            <input type="datetime-local" class="form-control" id="datetimepicker" name="dateTime"
                                    placeholder="<spring:message code="meals.dateTime"/>">
                         </div>
                     </div>
